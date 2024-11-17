@@ -7,19 +7,20 @@
   background-color: #f8f9fa;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 0 20px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .hirehublogo {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 2.5vw; /* Responsive font size based on viewport width */
+  font-size: 28px;
   font-weight: bold;
   color: #343a40;
 }
 
-/* Image for logo */
 .logoimg {
-  height: 10vw; /* Responsive height based on viewport width */
-  max-height: 65px; /* Ensures the image doesn't get too large */
   height: 55px;
   max-width: 190px;
   padding-top: 5px;
@@ -34,38 +35,47 @@
 }
 
 .icon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin:  15px;
+  margin: 10px;  
   font-size: 19px;
   font-weight: 600;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #343a40;
   cursor: pointer;
   position: relative;
+}
+
+.icon a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .icon svg {
   margin-right: 5px;
   color: #6c757d;
   transition: color 0.3s ease;
+  vertical-align: middle;
+}
+
+.icon span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 
 .icon:hover svg {
   color: #007bff;
 }
 
-.icon span {
-  display: inline;
-}
-
 .icon:hover span {
-  margin-left: 5px;
+  text-decoration: underline;
+  text-underline-offset: 1rem;
+  text-decoration-color: #007bff;
 }
 
 .icon.active span::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
@@ -81,7 +91,7 @@
   padding: 10px 20px;
   font-size: 18px;
   font-weight: 400;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #0e0c0c;
   border-radius: 5px;
   cursor: pointer;
@@ -90,11 +100,13 @@
 
 .posting span {
   margin-right: 5px;
+  line-height: normal;
 }
 
 .posting-icon {
   color: #000000;
   transition: color 0.3s ease;
+  vertical-align: middle;
 }
 
 .posting:hover svg {
@@ -129,15 +141,12 @@
 }
 
 @media (max-width: 480px) {
-  .icon span {
-    display: none;
-  }
-
-  .icon {
-    margin: 10px;
-  }
-
+  .icon span,
   .posting span {
     display: none;
+  }
+
+  .navbar {
+    padding: 0 !important;
   }
 }

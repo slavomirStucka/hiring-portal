@@ -238,3 +238,7 @@ a {
 a:hover {
   color: #0056b3;
 }
+
+.eye-icon{
+  margin-bottom: -10px;
+}

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdWorkOutline } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
 import styled from 'styled-components';
-import defaultlogo from '../company.png'
+import defaultlogo from '../assests/company.png'
 
 import "../CSS/jobcard.css";
 
@@ -23,12 +22,7 @@ const WorkIcon = styled(MdWorkOutline)`
 
 `;
 
-const DepartmentIcon = styled(FcDepartment)`
-    font-size: 20px;
-    margin-left: 10px;
-    margin-right: 3px;
-    margin-top:2px;
-`;
+
 
 const Jobcard = ({ id, comlogo, company, worklocation, department, role }) => {
     const [companyName, setCompanyName] = useState("");
@@ -52,7 +46,7 @@ const Jobcard = ({ id, comlogo, company, worklocation, department, role }) => {
     }, [company]);
 
     return (
-        <Link to={`/job/${id}`}>
+        <Link to={`/job/${id}`} data-aos="fade-up" data-aos-delay="100">
             <div className="job-card-container">
                 <div className="job-image-wrapper">
                     <img src={comlogo || defaultlogo} alt="company logo" className="job-card-image" />

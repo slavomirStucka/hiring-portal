@@ -8,11 +8,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 import { useNavigate } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from '../firebase/firebase';
 import Navbar from "./Navbar";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -38,6 +38,8 @@ const Signup = () => {
     cgpa: "",
     pastJobs: [{ company: "", role: "", duration: "", details: "" }] // Initialize with one job entry
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -103,8 +105,35 @@ const Signup = () => {
     });
   };
 
-  const nextStep = () => {
-    setStep(step + 1);
+   const validateFields = () => {
+    const requiredFields = {
+      1: ["name", "email", "password", "techStack", "skills", "resume", "address"],
+      2: ["expectedSalary", "jobType", "jobTitle"],
+      3: ["location", "locationPreferences"],
+      4: isFresher ? ["degree", "university", "cgpa"] : ["degree", "university", "cgpa", "pastJobs"]
+    };
+
+    const missingFields = requiredFields[step].filter(field => {
+      if (field === "skills") {
+        return formData.skills.length === 0;
+      }
+      if (field === "pastJobs") {
+        return formData.pastJobs.some(job => !job.company || !job.role || !job.duration || !job.details);
+      }
+      return !formData[field];
+    });
+
+    if (missingFields.length > 0) {
+      toast.error(`Please fill in the required fields: ${missingFields.join(", ")}`);
+      return false;
+    }
+    return true;
+  };
+
+ const nextStep = () => {
+    if (validateFields()) {
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => {
@@ -123,9 +152,13 @@ const Signup = () => {
       toast.success('User created successfully!'); // Show success toast
       navigate('/signin');
     } catch (error) {
-      console.error('Error submitting form:', error.response.data);
+      console.error('Error submitting form:', error);
       toast.error('Error creating user. Please try again.'); // Show error toast
     }
+  };
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
   
   return (
@@ -250,15 +283,17 @@ const Signup = () => {
               />
             </label>
             <br />
-            <label>
+            <label className="password-field">
               Password:
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 className="signupinput"
                 value={formData.password}
                 onChange={handleChange}
               />
+              
+
             </label>
             <br />
             <label>
@@ -286,7 +321,7 @@ const Signup = () => {
             </label>
             <br />
             <label>
-              Upload Resume:&nbsp;&nbsp;
+              Upload Resume:
               <input
                 type="file"
                 name="resume"
@@ -305,7 +340,7 @@ const Signup = () => {
             </label>
             <br />
             <label>
-              Are you a fresher?&nbsp;&nbsp;
+              Are you a fresher?
               <input
                 type="checkbox"
                 name="isFresher"

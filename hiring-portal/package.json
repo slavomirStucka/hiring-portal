@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.25.7",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-free": "^6.6.0",
@@ -12,12 +13,12 @@
     "@monaco-editor/react": "^4.6.0",
     "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.1",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@uiw/codemirror-theme-okaidia": "^4.23.0",
     "@uiw/react-codemirror": "^4.23.0",
     "ace-builds": "^1.35.4",
+    "antd": "^5.21.4",
+    "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -25,35 +26,42 @@
     "compilex": "^0.7.4",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^7.4.1",
     "express-session": "^1.18.0",
     "fetch": "^1.1.0",
     "firebase": "^10.12.5",
+    "framer-motion": "^11.11.10",
+    "helmet": "^8.0.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.453.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^6.9.14",
+    "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.7",
     "path": "^0.12.7",
     "quill": "^2.0.2",
     "react": "^18.3.1",
     "react-ace": "^12.0.0",
     "react-codemirror2": "^8.0.0",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.2.1",
+    "react-icons": "^5.3.0",
     "react-lazyload": "^3.2.1",
     "react-modal": "^3.16.1",
     "react-model": "^4.3.1",
     "react-monaco-editor": "^0.55.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.25.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
     "react-spinner": "^0.2.7",
     "react-spinners": "^0.14.1",
-    "react-toastify": "^10.0.5",
+    "react-toastify": "^10.0.6",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.12",
@@ -63,8 +71,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:client": "react-scripts start",
+    "start:server": "cd Backend && nodemon server.js",
+    "dev": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -84,5 +96,28 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.25.9",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "babel-jest": "^29.7.0",
+    "concurrently": "^9.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[tj]sx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!axios)"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
   }
 }
